@@ -4,7 +4,7 @@
 
 
 ## <a name='TOC'>Table of Contents</a>
-
+  1. [General Coding Principles](#general-coding-principles)
   1. [Types](#types)
   1. [Objects](#objects)
   1. [Arrays](#arrays)
@@ -34,6 +34,42 @@
   1. [The JavaScript Style Guide Guide](#guide-guide)
   1. [Contributors](#contributors)
   1. [License](#license)
+
+
+
+
+## <a name='general-coding-principles'>General Coding Principles</a>
+  
+  - 99% of code should be housed in external javascript files. They should be included at the END of the BODY tag for maximum page performance.
+
+  - Don't rely on the user-agent string. Do proper feature detection. (More at Dive Into HTML5: Detection & jQuery.support docs)
+
+  - Don't use document.write().
+
+  - Definition order
+
+    ```javascript
+    var object = function () {
+      //private variables
+      //public variables
+      //private functions
+      //public functions
+    }
+    ```  
+
+  - Strive to create functions which can be generalized, take parameters, and return values. This allows for substantial code reuse and, when combined with includes or external scripts, can reduce the overhead when scripts need to change. For example, instead of hard coding a pop-window with window size, options, and url, consider creating a function which takes size, url, and options as variables.
+ 
+  - Comment your code! It helps reduce time spent troubleshooting JavaScript functions.
+
+  - Organize your code as an Object Literal/Singleton, in the Module Pattern, or as an Object with constructors.
+
+  - Minimize global variables - the less globals you create, the better. Generally one, for your application namespace, is a good number.
+
+    ```javascript
+    window.globalVar = { ... }
+    ```  
+
+  **[[⬆]](#TOC)**
 
 ## <a name='types'>Types</a>
 
@@ -67,6 +103,25 @@
 
     console.log(foo[0], bar[0]); // => 9, 9
     ```
+
+  - Type Checks
+
+    ```javascript
+    + **String:** `typeof object === "string"`
+    + **Number:** `typeof object === "number"`
+    + **Boolean:** `typeof object === "boolean"`
+    + **Object:** `typeof object === "object"`
+    + **Plain Object:** `jQuery.isPlainObject(object)`
+    + **Function:** `jQuery.isFunction(object)`
+    + **Array:** `jQuery.isArray(object)`
+    + **Element:** `object.nodeType`
+    + **null:** `object === null`
+    + **null or undefined:** `object == null`
+    + **undefined:**
+       + **Global Variables:** `typeof variable === "undefined"`
+       + **Local Variables:** `variable === undefined`
+       + **Properties:** `object.prop === undefined`
+    ```  
 
     **[[⬆]](#TOC)**
 
@@ -698,12 +753,12 @@
 
 
 ## <a name='whitespace'>Whitespace</a>
-
+  
   - Use soft tabs set to 2 spaces
 
     ```javascript
     // bad
-    function() {
+    function∙() {
     ∙∙∙∙var name;
     }
 
@@ -713,10 +768,99 @@
     }
 
     // good
-    function() {
+    function∙() {
     ∙∙var name;
     }
     ```
+
+  - No end of line whitespace.
+  
+  - No blank line whitespace.
+
+  - Place one space before and after binary and ternary operators.
+
+    ```javascript
+    var a∙=∙1∙+∙2,
+      b∙=∙a++,
+      c∙=∙a∙>∙0∙?∙'yes'∙:∙'no';
+    ```
+
+  - if/else/for/while/try/function always have braces, one space around parentheses and always go on multiple lines.
+
+    ```javascript
+    // Bad
+    if( condition ) doSomething();
+
+    // Bad
+    while( condition ) iterating++;
+
+    // Bad
+    for( var i=0;i<100;i++ ) someIterativeFn();
+
+    // Bad
+    object[array[0]];
+
+
+    // Good
+    if (condition) {
+        // expressions
+    }
+     
+    // Good
+    while (condition) {
+        // expressions
+    }
+     
+    // Good
+    var i = 0;
+     
+    for (; i < 100; i++) {
+        // expressions
+    }
+     
+    // Good
+    var prop;
+     
+    for (prop in object) {
+        // expressions
+    }
+     
+    // Good
+    if (condition) {
+        // expressions
+    } else {
+        // expressions
+    }
+     
+    // Good
+    if (condition) {
+        // expressions
+    } else if (condition) {
+        // expressions
+    } else {
+        // expressions
+    }
+     
+    // Good
+    try {
+        // expressions
+    } catch (e) {
+        // expressions
+    }
+     
+    // Good
+    try {
+        // expressions
+    } catch (e) {
+        // expressions
+    } finally {
+        // expressions
+    }
+     
+    // Good
+    object[array[ 0 ]];
+    ```
+
   - Place 1 space before the leading brace.
 
     ```javascript
@@ -737,7 +881,7 @@
     });
 
     // good
-    dog.set('attr', {
+    dog.set('attr',.{
       age: '1 year',
       breed: 'Bernese Mountain Dog'
     });
@@ -855,7 +999,6 @@
 
 
 ## <a name='type-coercion'>Type Casting & Coercion</a>
-
   - Perform type coercion at the beginning of the statement.
   - Strings:
 
@@ -927,6 +1070,12 @@
 
 
 ## <a name='naming-conventions'>Naming Conventions</a>
+  - Name variables and functions logically: For example: `popUpWindowForAd` rather than `myWindow`.
+
+  - All Boolean variables should start with "is".
+    ```javascript
+    isValid = (test.value >= 4 && test.success);
+    ```
 
   - Avoid single letter names. Be descriptive with your naming.
 
