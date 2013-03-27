@@ -106,7 +106,6 @@
 
   - Type Checks
 
-    ```javascript
     + **String:** `typeof object === "string"`
     + **Number:** `typeof object === "number"`
     + **Boolean:** `typeof object === "boolean"`
@@ -121,7 +120,6 @@
        + **Global Variables:** `typeof variable === "undefined"`
        + **Local Variables:** `variable === undefined`
        + **Properties:** `object.prop === undefined`
-    ```  
 
     **[[⬆]](#TOC)**
 
