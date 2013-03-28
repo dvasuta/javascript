@@ -7,6 +7,7 @@
   1. [General Coding Principles](#general-coding-principles)
   1. [Types](#types)
   1. [Objects](#objects)
+  1. [OOP](#oop)
   1. [Arrays](#arrays)
   1. [Strings](#strings)
   1. [Functions](#functions)
@@ -46,47 +47,40 @@
 
   - Don't use document.write().
 
-  - Definition order
-
-    ```javascript
-    var object = function () {
-      //private variables
-      //public variables
-      //private functions
-      //public functions
-    }
-    ```  
-
   - Strive to create functions which can be generalized, take parameters, and return values. This allows for substantial code reuse and, when combined with includes or external scripts, can reduce the overhead when scripts need to change. For example, instead of hard coding a pop-window with window size, options, and url, consider creating a function which takes size, url, and options as variables.
  
   - Comment your code! It helps reduce time spent troubleshooting JavaScript functions.
 
   - Organize your code as an Object Literal/Singleton, in the Module Pattern, or as an Object with constructors.
 
-  - Minimize global variables - the less globals you create, the better. Generally one, for your application namespace, is a good number.
+  - Minimize global variables - the less globals you create, the better. Generally one, for your application namespace, is a good number:
 
     ```javascript
     window.globalVar = { ... }
     ```  
 
-  **[[⬆]](#TOC)**
+  - For maximum portability and compatibility, always prefer standards features over non-standards features (e.g., `string.charAt(3)` over `string[3] ` and element access with DOM functions instead of using an application-specific shorthand).
+
+  - Explicit scope 
+    Always use explicit scope - doing so increases portability and clarity. For example, don't rely on window being in the scope chain. You might want to use your function in another application for which window is not the content window.
+    
+    **[[⬆]](#TOC)**
+
 
 ## <a name='types'>Types</a>
 
   - **Primitives**: When you access a primitive type you work directly on its value
 
-    + `string`
-    + `number`
-    + `boolean`
-    + `null`
-    + `undefined`
+    * `string`
+    * `number`
+    * `boolean`
+    * `null`
+    * `undefined`
 
     ```javascript
     var foo = 1,
         bar = foo;
-
     bar = 9;
-
     console.log(foo, bar); // => 1, 9
     ```
   - **Complex**: When you access a complex type you work on a reference to its value
@@ -121,7 +115,7 @@
        + **Local Variables:** `variable === undefined`
        + **Properties:** `object.prop === undefined`
 
-    **[[⬆]](#TOC)**
+  **[[⬆]](#TOC)**
 
 ## <a name='objects'>Objects</a>
 
@@ -152,6 +146,55 @@
       hidden: true
     };
     ```
+    **[[⬆]](#TOC)**
+
+## <a name='oop'>OOP</a>
+
+  - Definition order
+
+    ```javascript
+    var object = function () {
+      //private variables
+      //public variables
+      //private functions
+      //public functions
+    }
+    ```
+  - Method and property definitions:
+
+    ```javascript
+    /** @constructor */
+    function SomeConstructor() {
+        this.someProperty = 1;
+    }
+    Foo.prototype.someMethod = function() { ... };
+    ``` 
+
+    While there are several ways to attach methods and properties to an object created via "new", the preferred style for methods is:
+
+    ```javascript
+    Foo.prototype.bar = function() {
+      /* ... */
+    };
+    ``` 
+
+    The preferred style for other properties is to initialize the field in the constructor:
+
+    ```javascript
+    /** @constructor */
+    function Foo() {
+      this.bar = value;
+    }
+    ``` 
+    
+  - Modifying prototypes of builtin objects:
+    Modifying builtins like `Object.prototype` and `Array.prototype` are strictly forbidden. Modifying other builtins like `Function.prototype` is less dangerous but still leads to hard to debug issues in production and should be avoided.
+
+  - Custom toString() methods
+    Must always succeed without side effects.
+
+    You can control how your objects string-ify themselves by defining a custom `toString()` method. This is fine, but you need to ensure that your method (1) always succeeds and (2) does not have side-effects.If your method doesn't meet these criteria, it's very easy to run into serious problems. For example, if `toString()` calls a method that does an assert, assert might try to output the name of the object in which it failed, which of course requires calling `toString()`.
+
     **[[⬆]](#TOC)**
 
 ## <a name='arrays'>Arrays</a>
@@ -1184,6 +1227,47 @@
     };
     ```
 
+  - Constant values
+
+    If a value is intended to be constant and immutable, it should be given a name in `CONSTANT_VALUE_CASE`. `ALL_CAPS` additionally implies @const (that the value is not overwritable).
+
+    Primitive types (number, string, boolean) are constant values.
+
+    Objects' immutabilty is more subjective — objects should be considered immutable only if they do not demonstrate obeserverable state change. This is not enforced by the compiler.
+
+  - Constant pointers (variables and properties)
+
+    The @const annotation on a variable or property implies that it is not overwritable. This is enforced by the compiler at build time. This behavior is consistent with the const keyword (which we do not use due to the lack of support in Internet Explorer).
+
+    A @const annotation on a method additionally implies that the method should not be overriden in subclasses.
+
+    **Examples**
+
+    Note that @const does not necessarily imply `CONSTANT_VALUES_CASE`. However, `CONSTANT_VALUES_CASE` does imply @const.
+
+    ```javascript
+    /**
+     * Request timeout in milliseconds.
+     * @type {number}
+     */
+    goog.example.TIMEOUT_IN_MILLISECONDS = 60;
+    ```
+
+    The number of seconds in a minute never changes. It is a constant value. `ALL_CAPS` also implies @const, so the constant cannot be overwritten.
+
+    The open source compiler will allow the symbol it to be overwritten because the constant is not marked as @const.
+
+    ```javascript
+    /**
+     * Map of URL to response string.
+     * @const
+     */
+    MyClass.fetchedUrlCache_ = new goog.structs.Map();
+    ```
+
+    In this case, the pointer can never be overwritten, but value is highly mutable and not constant (and thus in `camelCase`, not `ALL_CAPS`).
+
+
     **[[⬆]](#TOC)**
 
 
@@ -1419,7 +1503,7 @@
     $($sidebar[0]).find('ul');
     ```
 
-    **[[⬆]](#TOC)**
+  **[[⬆]](#TOC)**
 
 
 ## <a name='es5'>ECMAScript 5 Compatibility</a>
@@ -1439,11 +1523,55 @@
     }
     ```
 
-    **[[⬆]](#TOC)**
+  **[[⬆]](#TOC)**
 
 
 ## <a name='performance'>Performance</a>
 
+   - Prefer `this.foo = null`.
+
+    ```javascript
+    Foo.prototype.dispose = function() {
+      this.property_ = null;
+    };
+    ```
+
+    Instead of:
+
+    ```javascript
+    Foo.prototype.dispose = function() {
+      delete this.property_;
+    };
+    ```
+    In modern JavaScript engines, changing the number of properties on an object is much slower than reassigning the values. The delete keyword should be avoided except when it is necessary to remove a property from an object's iterated list of keys, or to change the result of `if (key in obj)`.
+
+
+   - Closures
+
+    Yes, but be careful.
+    The ability to create closures is perhaps the most useful and often overlooked feature of JS. Here is a good description of how closures work .
+
+    One thing to keep in mind, however, is that a closure keeps a pointer to its enclosing scope. As a result, attaching a closure to a DOM element can create a circular reference and thus, a memory leak. For example, in the following code:
+
+    ```javascript
+    function foo(element, a, b) {
+      element.onclick = function() { /* uses a and b */ };
+    }
+    ```
+
+    the function closure keeps a reference to element, a, and b even if it never uses element. Since element also keeps a reference to the closure, we have a cycle that won't be cleaned up by garbage collection. In these situations, the code can be structured as follows:
+
+    ```javascript
+    function foo(element, a, b) {
+      element.onclick = bar(a, b);
+    }
+
+    function bar(a, b) {
+      return function() { /* uses a and b */ }
+    }
+    ```
+
+    * * * 
   - [On Layout & Web Performance](http://kellegous.com/j/2013/01/26/layout-performance/)
   - [String vs Array Concat](http://jsperf.com/string-vs-array-concat/2)
   - [Try/Catch Cost In a Loop](http://jsperf.com/try-catch-in-loop-cost)
