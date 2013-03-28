@@ -1,4 +1,4 @@
-# Airbnb JavaScript Style Guide() {
+# JavaScript Style Guide() {
 
 *A mostly reasonable approach to JavaScript*
 
@@ -30,10 +30,6 @@
   1. [Testing](#testing)
   1. [Performance](#performance)
   1. [Resources](#resources)
-  1. [In the Wild](#in-the-wild)
-  1. [Translation](#translation)
-  1. [The JavaScript Style Guide Guide](#guide-guide)
-  1. [Contributors](#contributors)
   1. [License](#license)
 
 
@@ -63,7 +59,7 @@
 
   - Explicit scope 
     Always use explicit scope - doing so increases portability and clarity. For example, don't rely on window being in the scope chain. You might want to use your function in another application for which window is not the content window.
-    
+
     **[[⬆]](#TOC)**
 
 
@@ -1628,38 +1624,6 @@
   - [nettuts](http://net.tutsplus.com/?s=javascript)
 
   **[[⬆]](#TOC)**
-
-## <a name='in-the-wild'>In the Wild</a>
-
-  This is a list of organizations that are using this style guide. Send us a pull request or open an issue and we'll add you to the list.
-
-  - **Airbnb**: [airbnb/javascript](https://github.com/airbnb/javascript)
-  - **American Insitutes for Research**: [AIRAST/javascript](https://github.com/AIRAST/javascript)
-  - **ExactTarget**: [ExactTarget/javascript](https://github.com/ExactTarget/javascript)
-  - **GoodData**: [gooddata/gdc-js-style](https://github.com/gooddata/gdc-js-style)
-  - **How About We**: [howaboutwe/javascript](https://github.com/howaboutwe/javascript)
-  - **MinnPost**: [MinnPost/javascript](https://github.com/MinnPost/javascript)
-  - **ModCloth**: [modcloth/javascript](https://github.com/modcloth/javascript)
-  - **National Geographic**: [natgeo/javascript](https://github.com/natgeo/javascript)
-  - **Razorfish**: [razorfish/javascript-style-guide](https://github.com/razorfish/javascript-style-guide)
-  - **Shutterfly**: [shutterfly/javascript](https://github.com/shutterfly/javascript)
-  - **Userify**: [userify/javascript](https://github.com/userify/javascript)
-  - **Zillow**: [zillow/javascript](https://github.com/zillow/javascript)
-
-## <a name='translation'>Translation</a>
-
-  This style guide is also available in other languages:
-
-  - :de: **German**: [timofurrer/javascript-style-guide](https://github.com/timofurrer/javascript-style-guide)
-  - :jp: **Japanese**: [mitsuruog/javacript-style-guide](https://github.com/mitsuruog/javacript-style-guide)
-
-## <a name='guide-guide'>The JavaScript Style Guide Guide</a>
-
-  - [Reference](https://github.com/airbnb/javascript/wiki/The-JavaScript-Style-Guide-Guide)
-
-## <a name='authors'>Contributors</a>
-
-  - [View Contributors](https://github.com/airbnb/javascript/graphs/contributors)
 
 
 ## <a name='license'>License</a>
