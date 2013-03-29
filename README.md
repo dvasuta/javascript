@@ -36,7 +36,7 @@
 
 
 ## <a name='general-coding-principles'>General Coding Principles</a>
-  
+
   - 99% of code should be housed in external javascript files. They should be included at the END of the BODY tag for maximum page performance.
 
   - Don't rely on the user-agent string. Do proper feature detection. (More at Dive Into HTML5: Detection & jQuery.support docs)
@@ -44,21 +44,20 @@
   - Don't use document.write().
 
   - Strive to create functions which can be generalized, take parameters, and return values. This allows for substantial code reuse and, when combined with includes or external scripts, can reduce the overhead when scripts need to change. For example, instead of hard coding a pop-window with window size, options, and url, consider creating a function which takes size, url, and options as variables.
- 
+
   - Comment your code! It helps reduce time spent troubleshooting JavaScript functions.
 
-  - Organize your code as an Object Literal/Singleton, in the Module Pattern, or as an Object with constructors.
+  - Organize your code as an [Object Literal/Singleton](http://kaijaeger.com/articles/the-singleton-design-pattern-in-javascript.html), in the [Module Pattern](http://www.yuiblog.com/blog/2007/06/12/module-pattern/), or as an [Object with constructors](http://mckoss.com/jscript/object.htm).
 
   - Minimize global variables - the less globals you create, the better. Generally one, for your application namespace, is a good number:
 
     ```javascript
     window.globalVar = { ... }
-    ```  
+    ```
 
   - For maximum portability and compatibility, always prefer standards features over non-standards features (e.g., `string.charAt(3)` over `string[3] ` and element access with DOM functions instead of using an application-specific shorthand).
 
-  - Explicit scope 
-    Always use explicit scope - doing so increases portability and clarity. For example, don't rely on window being in the scope chain. You might want to use your function in another application for which window is not the content window.
+  - Always use explicit scope - doing so increases portability and clarity. For example, don't rely on `window` being in the scope chain. You might want to use your function in another application for which `window` is not the content window.
 
     **[[⬆]](#TOC)**
 
@@ -164,7 +163,7 @@
         this.someProperty = 1;
     }
     Foo.prototype.someMethod = function() { ... };
-    ``` 
+    ```
 
     While there are several ways to attach methods and properties to an object created via "new", the preferred style for methods is:
 
@@ -172,7 +171,7 @@
     Foo.prototype.bar = function() {
       /* ... */
     };
-    ``` 
+    ```
 
     The preferred style for other properties is to initialize the field in the constructor:
 
@@ -181,8 +180,8 @@
     function Foo() {
       this.bar = value;
     }
-    ``` 
-    
+    ```
+
   - Modifying prototypes of builtin objects:
     Modifying builtins like `Object.prototype` and `Array.prototype` are strictly forbidden. Modifying other builtins like `Function.prototype` is less dangerous but still leads to hard to debug issues in production and should be avoided.
 
@@ -255,8 +254,7 @@
     var fullName = 'Bob ' + this.lastName;
     ```
 
-  - Strings longer than 80 characters should be written across multiple lines using string concatenation.
-  - Note: If overused, long strings with concatenation could impact performance. [jsPerf](http://jsperf.com/ya-string-concat) & [Discussion](https://github.com/airbnb/javascript/issues/40)
+  - Strings longer than 80 characters should be written across multiple lines using string concatenation. **Note**: If overused, long strings with concatenation could impact performance. [jsPerf](http://jsperf.com/ya-string-concat) & [Discussion](https://github.com/airbnb/javascript/issues/40)
 
     ```javascript
     // bad
@@ -301,7 +299,7 @@
     length = messages.length;
 
     // bad
-    function inbox(messages) {
+    function inbox (messages) {
       items = '<ul>';
 
       for (i = 0; i < length; i++) {
@@ -312,7 +310,7 @@
     }
 
     // good
-    function inbox(messages) {
+    function inbox (messages) {
       items = [];
 
       for (i = 0; i < length; i++) {
@@ -332,35 +330,34 @@
 
     ```javascript
     // anonymous function expression
-    var anonymous = function() {
+    var anonymous = function () {
       return true;
     };
 
     // named function expression
-    var named = function named() {
+    var named = function named () {
       return true;
     };
 
     // immediately-invoked function expression (IIFE)
-    (function() {
+    (function () {
       console.log('Welcome to the Internet. Please follow me.');
     })();
     ```
 
-  - Never declare a function in a non-function block (if, while, etc). Assign the function to a variable instead. Browsers will allow you to do it, but they all interpret it differently, which is bad news bears.
-  - **Note:** ECMA-262 defines a `block` as a list of statements. A function declaration is not a statement. [Read ECMA-262's note on this issue](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf#page=97).
+  - Never declare a function in a non-function block (`if`, `while`, `etc`). Assign the function to a variable instead. Browsers will allow you to do it, but they all interpret it differently, which is bad news bears. **Note:** ECMA-262 defines a `block` as a list of statements. A function declaration is not a statement. [Read ECMA-262's note on this issue](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf#page=97).
 
     ```javascript
     // bad
     if (currentUser) {
-      function test() {
+      function test () {
         console.log('Nope.');
       }
     }
 
     // good
     if (currentUser) {
-      var test = function test() {
+      var test = function test () {
         console.log('Yup.');
       };
     }
@@ -370,12 +367,12 @@
 
     ```javascript
     // bad
-    function nope(name, options, arguments) {
+    function nope (name, options, arguments) {
       // ...stuff...
     }
 
     // good
-    function yup(name, options, args) {
+    function yup (name, options, args) {
       // ...stuff...
     }
     ```
@@ -409,7 +406,7 @@
       age: 28
     };
 
-    function getProp(prop) {
+    function getProp (prop) {
       return luke[prop];
     }
 
@@ -471,7 +468,7 @@
 
     ```javascript
     // bad
-    function() {
+    function () {
       test();
       console.log('doing stuff..');
 
@@ -487,7 +484,7 @@
     }
 
     // good
-    function() {
+    function () {
       var name = getName();
 
       test();
@@ -503,7 +500,7 @@
     }
 
     // bad
-    function() {
+    function () {
       var name = getName();
 
       if (!arguments.length) {
@@ -514,7 +511,7 @@
     }
 
     // good
-    function() {
+    function () {
       if (!arguments.length) {
         return false;
       }
@@ -535,7 +532,7 @@
     ```javascript
     // we know this wouldn't work (assuming there
     // is no notDefined global variable)
-    function example() {
+    function example () {
       console.log(notDefined); // => throws a ReferenceError
     }
 
@@ -543,7 +540,7 @@
     // reference the variable will work due to
     // variable hoisting. Note: the assignment
     // value of `true` is not hoisted.
-    function example() {
+    function example () {
       console.log(declaredButNotAssigned); // => undefined
       var declaredButNotAssigned = true;
     }
@@ -551,7 +548,7 @@
     // The interpreter is hoisting the variable
     // declaration to the top of the scope.
     // Which means our example could be rewritten as:
-    function example() {
+    function example () {
       var declaredButNotAssigned;
       console.log(declaredButNotAssigned); // => undefined
       declaredButNotAssigned = true;
@@ -561,12 +558,12 @@
   - Anonymous function expressions hoist their variable name, but not the function assignment.
 
     ```javascript
-    function example() {
+    function example () {
       console.log(anonymous); // => undefined
 
       anonymous(); // => TypeError anonymous is not a function
 
-      var anonymous = function() {
+      var anonymous = function () {
         console.log('anonymous function expression');
       };
     }
@@ -575,26 +572,26 @@
   - Named function expressions hoist the variable name, not the function name or the function body.
 
     ```javascript
-    function example() {
+    function example () {
       console.log(named); // => undefined
 
       named(); // => TypeError named is not a function
 
       superPower(); // => ReferenceError superPower is not defined
 
-      var named = function superPower() {
+      var named = function superPower () {
         console.log('Flying');
       };
 
 
       // the same is true when the function name
       // is the same as the variable name.
-      function example() {
+      function example () {
         console.log(named); // => undefined
 
         named(); // => TypeError named is not a function
 
-        var named = function named() {
+        var named = function named () {
           console.log('named');
         };
       }
@@ -604,10 +601,10 @@
   - Function declarations hoist their name and the function body.
 
     ```javascript
-    function example() {
+    function example () {
       superPower(); // => Flying
 
-      function superPower() {
+      function superPower () {
         console.log('Flying');
       }
     }
@@ -669,28 +666,80 @@
 
 ## <a name='blocks'>Blocks</a>
 
-  - Use braces with all multi-line blocks.
+  - if/else/for/while/try/function always have braces, one space around parentheses and always go on multiple lines.
 
     ```javascript
-    // bad
-    if (test)
-      return false;
+    // Bad
+    if(condition) doSomething();
 
-    // good
-    if (test) return false;
+    // Bad
+    while(condition) iterating++;
 
-    // good
-    if (test) {
-      return false;
+    // Bad
+    for(var i=0;i<100;i++) someIterativeFn();
+
+    // Bad
+    object[array[0]];
+
+
+    // Good
+    if (condition) {
+        // expressions
     }
 
-    // bad
-    function() { return false; }
-
-    // good
-    function() {
-      return false;
+    // Good
+    while (condition) {
+        // expressions
     }
+
+    // Good
+    var i = 0;
+
+    for (; i < 100; i++) {
+        // expressions
+    }
+
+    // Good
+    var prop;
+
+    for (prop in object) {
+        // expressions
+    }
+
+    // Good
+    if (condition) {
+        // expressions
+    } else {
+        // expressions
+    }
+
+    // Good
+    if (condition) {
+        // expressions
+    } else if (condition) {
+        // expressions
+    } else {
+        // expressions
+    }
+
+    // Good
+    try {
+        // expressions
+    } catch (e) {
+        // expressions
+    }
+
+    // Good
+    try {
+        // expressions
+    } catch (e) {
+        // expressions
+    } finally {
+        // expressions
+    }
+
+    // Good
+    object[array[ 0 ]];
     ```
 
     **[[⬆]](#TOC)**
@@ -707,7 +756,7 @@
     //
     // @param <String> tag
     // @return <Element> element
-    function make(tag) {
+    function make (tag) {
 
       // ...stuff...
 
@@ -722,7 +771,7 @@
      * @param <String> tag
      * @return <Element> element
      */
-    function make(tag) {
+    function make (tag) {
 
       // ...stuff...
 
@@ -741,7 +790,7 @@
     var active = true;
 
     // bad
-    function getType() {
+    function getType () {
       console.log('fetching type...');
       // set the default type to 'no type'
       var type = this._type || 'no type';
@@ -750,7 +799,7 @@
     }
 
     // good
-    function getType() {
+    function getType () {
       console.log('fetching type...');
 
       // set the default type to 'no type'
@@ -765,7 +814,7 @@
   - Use `// FIXME:` to annotate problems
 
     ```javascript
-    function Calculator() {
+    function Calculator () {
 
       // FIXME: shouldn't use a global here
       total = 0;
@@ -777,7 +826,7 @@
   - Use `// TODO:` to annotate solutions to problems
 
     ```javascript
-    function Calculator() {
+    function Calculator () {
 
       // TODO: total should be configurable by an options param
       this.total = 0;
@@ -790,7 +839,7 @@
 
 
 ## <a name='whitespace'>Whitespace</a>
-  
+
   - Use soft tabs set to 2 spaces
 
     ```javascript
@@ -811,7 +860,7 @@
     ```
 
   - No end of line whitespace.
-  
+
   - No blank line whitespace.
 
   - Place one space before and after binary and ternary operators.
@@ -820,82 +869,6 @@
     var a∙=∙1∙+∙2,
       b∙=∙a++,
       c∙=∙a∙>∙0∙?∙'yes'∙:∙'no';
-    ```
-
-  - if/else/for/while/try/function always have braces, one space around parentheses and always go on multiple lines.
-
-    ```javascript
-    // Bad
-    if( condition ) doSomething();
-
-    // Bad
-    while( condition ) iterating++;
-
-    // Bad
-    for( var i=0;i<100;i++ ) someIterativeFn();
-
-    // Bad
-    object[array[0]];
-
-
-    // Good
-    if (condition) {
-        // expressions
-    }
-     
-    // Good
-    while (condition) {
-        // expressions
-    }
-     
-    // Good
-    var i = 0;
-     
-    for (; i < 100; i++) {
-        // expressions
-    }
-     
-    // Good
-    var prop;
-     
-    for (prop in object) {
-        // expressions
-    }
-     
-    // Good
-    if (condition) {
-        // expressions
-    } else {
-        // expressions
-    }
-     
-    // Good
-    if (condition) {
-        // expressions
-    } else if (condition) {
-        // expressions
-    } else {
-        // expressions
-    }
-     
-    // Good
-    try {
-        // expressions
-    } catch (e) {
-        // expressions
-    }
-     
-    // Good
-    try {
-        // expressions
-    } catch (e) {
-        // expressions
-    } finally {
-        // expressions
-    }
-     
-    // Good
-    object[array[ 0 ]];
     ```
 
   - Place 1 space before the leading brace.
@@ -907,7 +880,7 @@
     }
 
     // good
-    function test() {
+    function test ()∙{
       console.log('test');
     }
 
@@ -918,7 +891,7 @@
     });
 
     // good
-    dog.set('attr',.{
+    dog.set('attr',∙{
       age: '1 year',
       breed: 'Bernese Mountain Dog'
     });
@@ -927,14 +900,14 @@
 
     ```javascript
     // bad
-    (function(global) {
+    (function (global) {
       // ...stuff...
     })(this);
     ```
 
     ```javascript
     // good
-    (function(global) {
+    (function (global) {
       // ...stuff...
     })(this);
 
@@ -1014,19 +987,19 @@
 
     ```javascript
     // bad
-    (function() {
+    (function () {
       var name = 'Skywalker'
       return name
     })()
 
     // good
-    (function() {
+    (function () {
       var name = 'Skywalker';
       return name;
     })();
 
     // good
-    ;(function() {
+    ;(function () {
       var name = 'Skywalker';
       return name;
     })();
@@ -1118,12 +1091,12 @@
 
     ```javascript
     // bad
-    function q() {
+    function q () {
       // ...stuff...
     }
 
     // good
-    function query() {
+    function query () {
       // ..stuff..
     }
     ```
@@ -1185,7 +1158,7 @@
 
     ```javascript
     // bad
-    function() {
+    function () {
       var self = this;
       return function() {
         console.log(self);
@@ -1193,7 +1166,7 @@
     }
 
     // bad
-    function() {
+    function () {
       var that = this;
       return function() {
         console.log(that);
@@ -1201,7 +1174,7 @@
     }
 
     // good
-    function() {
+    function () {
       var _this = this;
       return function() {
         console.log(_this);
@@ -1213,12 +1186,12 @@
 
     ```javascript
     // bad
-    var log = function(msg) {
+    var log = function (msg) {
       console.log(msg);
     };
 
     // good
-    var log = function log(msg) {
+    var log = function log (msg) {
       console.log(msg);
     };
     ```
@@ -1258,7 +1231,7 @@
      * Map of URL to response string.
      * @const
      */
-    MyClass.fetchedUrlCache_ = new goog.structs.Map();
+    MyClass._fetchedUrlCache = new goog.structs.Map();
     ```
 
     In this case, the pointer can never be overwritten, but value is highly mutable and not constant (and thus in `camelCase`, not `ALL_CAPS`).
@@ -1303,17 +1276,17 @@
   - It's okay to create get() and set() functions, but be consistent.
 
     ```javascript
-    function Jedi(options) {
+    function Jedi (options) {
       options || (options = {});
       var lightsaber = options.lightsaber || 'blue';
       this.set('lightsaber', lightsaber);
     }
 
-    Jedi.prototype.set = function(key, val) {
+    Jedi.prototype.set = function (key, val) {
       this[key] = val;
     };
 
-    Jedi.prototype.get = function(key) {
+    Jedi.prototype.get = function (key) {
       return this[key];
     };
     ```
@@ -1326,27 +1299,27 @@
   - Assign methods to the prototype object, instead of overwriting the prototype with a new object. Overwriting the prototype makes inheritance impossible: by resetting the prototype you'll overwrite the base!
 
     ```javascript
-    function Jedi() {
+    function Jedi () {
       console.log('new jedi');
     }
 
     // bad
     Jedi.prototype = {
-      fight: function fight() {
+      fight: function fight () {
         console.log('fighting');
       },
 
-      block: function block() {
+      block: function block () {
         console.log('blocking');
       }
     };
 
     // good
-    Jedi.prototype.fight = function fight() {
+    Jedi.prototype.fight = function fight () {
       console.log('fighting');
     };
 
-    Jedi.prototype.block = function block() {
+    Jedi.prototype.block = function block () {
       console.log('blocking');
     };
     ```
@@ -1355,12 +1328,12 @@
 
     ```javascript
     // bad
-    Jedi.prototype.jump = function() {
+    Jedi.prototype.jump = function () {
       this.jumping = true;
       return true;
     };
 
-    Jedi.prototype.setHeight = function(height) {
+    Jedi.prototype.setHeight = function (height) {
       this.height = height;
     };
 
@@ -1369,12 +1342,12 @@
     luke.setHeight(20) // => undefined
 
     // good
-    Jedi.prototype.jump = function() {
+    Jedi.prototype.jump = function () {
       this.jumping = true;
       return this;
     };
 
-    Jedi.prototype.setHeight = function(height) {
+    Jedi.prototype.setHeight = function (height) {
       this.height = height;
       return this;
     };
@@ -1383,6 +1356,24 @@
 
     luke.jump()
       .setHeight(20);
+    ```
+
+
+  - It's okay to write a custom toString() method, just make sure it works successfully and causes no side effects.
+
+    ```javascript
+    function Jedi (options) {
+      options || (options = {});
+      this.name = options.name || 'no name';
+    }
+
+    Jedi.prototype.getName = function getName () {
+      return this.name;
+    };
+
+    Jedi.prototype.toString = function toString () {
+      return 'Jedi - ' + this.getName();
+    };
     ```
 
     **[[⬆]](#TOC)**
@@ -1403,11 +1394,11 @@
 
       var previousFancyInput = global.FancyInput;
 
-      function FancyInput(options) {
+      function FancyInput (options) {
         this.options = options || {};
       }
 
-      FancyInput.noConflict = function noConflict() {
+      FancyInput.noConflict = function noConflict () {
         global.FancyInput = previousFancyInput;
         return FancyInput;
       };
@@ -1435,7 +1426,7 @@
 
     ```javascript
     // bad
-    function setSidebar() {
+    function setSidebar () {
       $('.sidebar').hide();
 
       // ...stuff...
@@ -1446,7 +1437,7 @@
     }
 
     // good
-    function setSidebar() {
+    function setSidebar () {
       var $sidebar = $('.sidebar');
       $sidebar.hide();
 
@@ -1496,7 +1487,7 @@
   - **Yup.**
 
     ```javascript
-    function() {
+    function () {
       return true;
     }
     ```
@@ -1509,7 +1500,7 @@
    - Prefer `this.foo = null`.
 
     ```javascript
-    Foo.prototype.dispose = function() {
+    Foo.prototype.dispose = function dispose () {
       this.property_ = null;
     };
     ```
@@ -1517,7 +1508,7 @@
     Instead of:
 
     ```javascript
-    Foo.prototype.dispose = function() {
+    Foo.prototype.dispose = function dispose () {
       delete this.property_;
     };
     ```
@@ -1532,7 +1523,7 @@
     One thing to keep in mind, however, is that a closure keeps a pointer to its enclosing scope. As a result, attaching a closure to a DOM element can create a circular reference and thus, a memory leak. For example, in the following code:
 
     ```javascript
-    function foo(element, a, b) {
+    function foo (element, a, b) {
       element.onclick = function() { /* uses a and b */ };
     }
     ```
@@ -1549,7 +1540,7 @@
     }
     ```
 
-    * * * 
+    * * *
   - [On Layout & Web Performance](http://kellegous.com/j/2013/01/26/layout-performance/)
   - [String vs Array Concat](http://jsperf.com/string-vs-array-concat/2)
   - [Try/Catch Cost In a Loop](http://jsperf.com/try-catch-in-loop-cost)
