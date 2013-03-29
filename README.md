@@ -39,8 +39,8 @@
 
   - 99% of code should be housed in external javascript files. They should be included at the END of the BODY tag for maximum page performance.
 
-  - Don't rely on the user-agent string. Do proper feature detection. (More at Dive Into HTML5: Detection & jQuery.support docs)
-
+  - Don't rely on the user-agent string. Do proper feature detection. (More at [Dive Into HTML5: Detection](http://diveintohtml5.info/detect.html) & [jQuery.support docs](http://api.jquery.com/jQuery.support/))
+  
   - Don't use `document.write()`.
 
   - Strive to create functions which can be generalized, take parameters, and return values. This allows for substantial code reuse and, when combined with includes or external scripts, can reduce the overhead when scripts need to change. For example, instead of hard coding a pop-window with window size, options, and url, consider creating a function which takes size, url, and options as variables.
