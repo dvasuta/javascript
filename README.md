@@ -217,7 +217,7 @@
     someStack.push('abracadabra');
     ```
 
-  - When you need to copy an array use Array#slice. [jsPerf](http://jsperf.com/converting-arguments-to-an-array/7)
+  - When you need to copy an array use `Array#slice`. [jsPerf](http://jsperf.com/converting-arguments-to-an-array/7)
 
     ```javascript
     var len = items.length,
@@ -278,7 +278,7 @@
       'fast.';
     ```
 
-  - When programatically building up a string, use Array#join instead of string concatenation. Mostly for IE: [jsPerf](http://jsperf.com/string-vs-array-concat/2).
+  - When programatically building up a string, use `Array#join` instead of string concatenation. Mostly for IE: [jsPerf](http://jsperf.com/string-vs-array-concat/2).
 
     ```javascript
     var items,
@@ -1198,7 +1198,7 @@
 
   - Constant values
 
-    If a value is intended to be constant and immutable, it should be given a name in `CONSTANT_VALUE_CASE`. `ALL_CAPS` additionally implies @const (that the value is not overwritable).
+    If a value is intended to be constant and immutable, it should be given a name in `CONSTANT_VALUE_CASE`. `ALL_CAPS` additionally implies `@const` (that the value is not overwritable).
 
     Primitive types (number, string, boolean) are constant values.
 
@@ -1206,13 +1206,13 @@
 
   - Constant pointers (variables and properties)
 
-    The @const annotation on a variable or property implies that it is not overwritable. This is enforced by the compiler at build time. This behavior is consistent with the const keyword (which we do not use due to the lack of support in Internet Explorer).
+    The `@const` annotation on a variable or property implies that it is not overwritable. This is enforced by the compiler at build time. This behavior is consistent with the const keyword (which we do not use due to the lack of support in Internet Explorer).
 
-    A @const annotation on a method additionally implies that the method should not be overriden in subclasses.
+    A `@const` annotation on a method additionally implies that the method should not be overriden in subclasses.
 
     **Examples**
 
-    Note that @const does not necessarily imply `CONSTANT_VALUES_CASE`. However, `CONSTANT_VALUES_CASE` does imply @const.
+    Note that `@const` does not necessarily imply `CONSTANT_VALUES_CASE`. However, `CONSTANT_VALUES_CASE` does imply `@const`.
 
     ```javascript
     /**
@@ -1222,7 +1222,7 @@
     goog.example.TIMEOUT_IN_MILLISECONDS = 60;
     ```
 
-    The number of seconds in a minute never changes. It is a constant value. `ALL_CAPS` also implies @const, so the constant cannot be overwritten.
+    The number of seconds in a minute never changes. It is a constant value. `ALL_CAPS` also implies `@const`, so the constant cannot be overwritten.
 
     The open source compiler will allow the symbol it to be overwritten because the constant is not marked as @const.
 
@@ -1243,7 +1243,7 @@
 ## <a name='accessors'>Accessors</a>
 
   - Accessor functions for properties are not required
-  - If you do make accessor functions use getVal() and setVal('hello')
+  - If you do make accessor functions use `getVal()` and `setVal('hello')`
 
     ```javascript
     // bad
@@ -1259,7 +1259,7 @@
     dragon.setAge(25);
     ```
 
-  - If the property is a boolean, use isVal() or hasVal()
+  - If the property is a boolean, use `isVal()` or `hasVal()`
 
     ```javascript
     // bad
@@ -1273,7 +1273,7 @@
     }
     ```
 
-  - It's okay to create get() and set() functions, but be consistent.
+  - It's okay to create `get()` and `set()` functions, but be consistent.
 
     ```javascript
     function Jedi (options) {
@@ -1383,7 +1383,7 @@
 
   - The module should start with a `!`. This ensures that if a malformed module forgets to include a final semicolon there aren't errors in production when the scripts get concatenated.
   - The file should be named with camelCase, live in a folder with the same name, and match the name of the single export.
-  - Add a method called noConflict() that sets the exported module to the previous version and returns this one.
+  - Add a method called `noConflict()` that sets the exported module to the previous version and returns this one.
   - Always declare `'use strict';` at the top of the module.
 
     ```javascript
