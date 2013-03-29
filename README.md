@@ -165,7 +165,7 @@
     Foo.prototype.someMethod = function() { ... };
     ```
 
-    While there are several ways to attach methods and properties to an object created via "new", the preferred style for methods is:
+    While there are several ways to attach methods and properties to an object created via `new`, the preferred style for methods is:
 
     ```javascript
     Foo.prototype.bar = function() {
@@ -1224,7 +1224,7 @@
 
     The number of seconds in a minute never changes. It is a constant value. `ALL_CAPS` also implies `@const`, so the constant cannot be overwritten.
 
-    The open source compiler will allow the symbol it to be overwritten because the constant is not marked as @const.
+    The open source compiler will allow the symbol it to be overwritten because the constant is not marked as `@const`.
 
     ```javascript
     /**
@@ -1359,7 +1359,7 @@
     ```
 
 
-  - It's okay to write a custom toString() method, just make sure it works successfully and causes no side effects.
+  - It's okay to write a custom `toString()` method, just make sure it works successfully and causes no side effects.
 
     ```javascript
     function Jedi (options) {
@@ -1528,7 +1528,7 @@
     }
     ```
 
-    the function closure keeps a reference to element, a, and b even if it never uses element. Since element also keeps a reference to the closure, we have a cycle that won't be cleaned up by garbage collection. In these situations, the code can be structured as follows:
+    the function closure keeps a reference to `element`, `a`, and `b` even if it never uses element. Since element also keeps a reference to the closure, we have a cycle that won't be cleaned up by garbage collection. In these situations, the code can be structured as follows:
 
     ```javascript
     function foo(element, a, b) {
