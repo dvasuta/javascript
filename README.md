@@ -41,7 +41,7 @@
 
   - Don't rely on the user-agent string. Do proper feature detection. (More at Dive Into HTML5: Detection & jQuery.support docs)
 
-  - Don't use document.write().
+  - Don't use `document.write()`.
 
   - Strive to create functions which can be generalized, take parameters, and return values. This allows for substantial code reuse and, when combined with includes or external scripts, can reduce the overhead when scripts need to change. For example, instead of hard coding a pop-window with window size, options, and url, consider creating a function which takes size, url, and options as variables.
 
