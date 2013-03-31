@@ -188,7 +188,7 @@
   - Custom toString() methods
     Must always succeed without side effects.
 
-    You can control how your objects string-ify themselves by defining a custom `toString()` method. This is fine, but you need to ensure that your method (1) always succeeds and (2) does not have side-effects.If your method doesn't meet these criteria, it's very easy to run into serious problems. For example, if `toString()` calls a method that does an assert, assert might try to output the name of the object in which it failed, which of course requires calling `toString()`.
+    You can control how your objects string-ify themselves by defining a custom `toString()` method. This is fine, but you need to ensure that your method (1) always succeeds and (2) does not have side-effects. If your method doesn't meet these criteria, it's very easy to run into serious problems. For example, if `toString()` calls a method that does an assert, assert might try to output the name of the object in which it failed, which of course requires calling `toString()`.
 
     **[[⬆]](#TOC)**
 
